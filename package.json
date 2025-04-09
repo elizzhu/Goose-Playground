@@ -1,0 +1,9 @@
+{
+  "name": "shop-navigation",
+  "version": "1.0.0",
+  "description": "Shop Navigation Interface",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  }
+}

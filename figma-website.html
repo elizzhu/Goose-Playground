@@ -1,0 +1,250 @@
+<html>
+<head>
+    <title>HTML and CSS Slideshow</title>
+    <style>
+        body {
+            font-family: Helvetica, sans-serif;
+            padding: 5%;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        /* Styling the area of the slides */
+        #slideshow {
+            overflow: hidden;
+            height: 510px;
+            width: 728px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Style each of the sides with a fixed width and height */
+        .slide {
+            float: left;
+            height: 510px;
+            width: 728px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Add animation to the slides */
+        .slide-wrapper {
+            /* Calculate the total width on the basis of number of slides */
+            width: calc(728px * var(--num-slides));
+            transition: margin-left 0.3s ease-in-out;
+        }
+
+        /* Set the background color of each of the slides */
+        .slide:nth-child(1) { background: #4CAF50; }  /* Material Green */
+        .slide:nth-child(2) { background: #2196F3; }  /* Material Blue */
+        .slide:nth-child(3) { background: #FFC107; }  /* Material Amber */
+
+        /* Style slide content */
+        .slide h1 {
+            color: white;
+            font-size: 2.5em;
+            margin-bottom: 0.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .slide p {
+            color: white;
+            font-size: 1.5em;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+            margin: 0.5em auto;
+        }
+
+        .slide ul, .slide ol {
+            color: white;
+            font-size: 1.2em;
+            text-align: left;
+            margin: 1em auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            max-width: 90%;
+        }
+
+        .slide li {
+            margin-bottom: 0.5em;
+        }
+
+        .slide ul ul, .slide ol ol {
+            font-size: 0.9em;
+            margin: 0.5em 0 0.5em 1em;
+        }
+
+        .slide pre {
+            font-size: 1.1em;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 1em;
+            border-radius: 5px;
+            max-width: 90%;
+            overflow-x: auto;
+        }
+
+        .nav-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            opacity: 1;
+            transition: opacity 0.5s;
+        }
+
+        .nav-hint.fade {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Define the slideshow container -->
+    <div id="slideshow">
+        <div class="slide-wrapper" style="--num-slides: 5">
+            <!-- First slide -->
+            <div class="slide">
+                <h1>Your Presentation</h1>
+                <p>Use arrow keys to navigate</p>
+            </div>
+
+            <!-- SLIDE_TEMPLATE (do not remove this comment)
+
+            <div class="slide">
+                <h1>New Slide Title</h1>
+                <p>Slide content goes here, can use rich like below:</p>
+                <ul>
+                    <li>Use make_presentation to:
+                        <ul>
+                            <li>create - Create new presentation</li>
+                            <li>add_slide - Add a new slide with content</li>
+                        </ul>
+                    </li>
+                    <li>For manual edits:
+                        <ul>
+                            <li>Use developer tools to edit the HTML</li>
+                            <li>Update --num-slides in slide-wrapper</li>
+                            <li>Copy template below for new slides</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>            
+
+            END_SLIDE_TEMPLATE -->
+
+                        <div class="slide">
+                <h1># Junzi
+
+295 Grand St, Brooklyn, NY
+Open until 10pm
+
+## Quick Actions
+- Order Now
+- View Menu
+- Shop Online</h1>
+            </div>
+
+                        <div class="slide">
+                <h1># Our Menu
+
+## Featured Categories
+- Appetizers (8 items)
+- Soups (6 items)
+- Dumplings (12 items)
+- Pantry Items
+- Weekend Specials
+- Happy Hour
+
+## Special Collections
+- The Spring Special
+- The Eastern Experiment
+- Red Chicken Curry
+- Junzi Celebration Chili Oil</h1>
+            </div>
+
+                        <div class="slide">
+                <h1># Order & Delivery
+
+## Pickup
+- Available Mon - Fri
+- Hours: 7am to 11pm
+- Available at 2 locations
+
+## Delivery
+- Available Mon - Fri
+- Hours: 7am to 11pm
+- $0.50/order
+- Ship to all countries ($9.99 - $19.99 fee)
+
+## Business Hours
+- Lunch: 10:00 AM - 2:00 PM
+- Dinner: 4:00 PM - 11:00 PM</h1>
+            </div>
+
+                        <div class="slide">
+                <h1># Contact Information
+
+## Phuket Café
+- Phone: (503) 781-2997
+- Email: contact@phuket.com
+
+## Customer Stats
+- New customers: 1,533
+- Returning customers: 2,421
+
+## Features
+- Online Ordering
+- Pickup & Delivery
+- Special Menu Items
+- Gift Sets Available</h1>
+            </div>
+
+            <!-- ADD_SLIDES_HERE (do not remove this comment) -->
+        </div>
+    </div>
+
+    <div class="nav-hint">
+        Use ← and → arrow keys to navigate
+    </div>
+
+    <script>
+        const slideWrapper = document.querySelector('.slide-wrapper');
+        const slideWidth = 728;
+        let currentSlide = 0;
+        const hint = document.querySelector('.nav-hint');
+        const totalSlides = document.querySelectorAll('.slide').length;
+
+        // Hide hint after 5 seconds
+        setTimeout(() => {
+            hint.classList.add('fade');
+        }, 5000);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateSlide();
+                }
+            } else if (e.key === 'ArrowRight') {
+                if (currentSlide < totalSlides - 1) {
+                    currentSlide++;
+                    updateSlide();
+                }
+            }
+        });
+
+        function updateSlide() {
+            slideWrapper.style.marginLeft = `-${currentSlide * slideWidth}px`;
+        }
+    </script>
+</body>
+</html>

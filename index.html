@@ -6,11 +6,15 @@
     <title>Online Shop Navigation</title>
     <style>
         :root {
-            --primary-bg: #ffffff;
-            --text-color: #333333;
-            --accent-color: #007AFF;
-            --border-color: #E5E5E5;
-            --sidebar-width: 240px;
+            --primary-bg: #FFFFFF;
+            --sidebar-bg: #FBFBFB;
+            --text-color: #1D1D1F;
+            --text-secondary: #6E6E73;
+            --accent-color: #0077ED;
+            --border-color: #D2D2D7;
+            --online-color: #34C759;
+            --sidebar-width: 256px;
+            --header-height: 64px;
         }
 
         * {
@@ -20,80 +24,103 @@
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
             background-color: var(--primary-bg);
             color: var(--text-color);
             line-height: 1.5;
             height: 100vh;
             display: flex;
+            -webkit-font-smoothing: antialiased;
         }
 
         .sidebar {
             width: var(--sidebar-width);
             height: 100%;
+            background-color: var(--sidebar-bg);
             border-right: 1px solid var(--border-color);
-            padding: 20px 0;
             display: flex;
             flex-direction: column;
         }
 
         .shop-header {
-            padding: 0 20px 20px;
+            height: var(--header-height);
+            padding: 0 16px;
             border-bottom: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .shop-title {
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 4px;
         }
 
-        .shop-title .arrow {
+        .shop-name {
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.24px;
+            color: var(--text-color);
+        }
+
+        .arrow {
+            margin-left: auto;
             width: 16px;
             height: 16px;
-            border-right: 2px solid var(--text-color);
-            border-bottom: 2px solid var(--text-color);
-            transform: rotate(45deg);
-            margin-left: auto;
+            position: relative;
+        }
+
+        .arrow::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6px;
+            height: 6px;
+            border-right: 1.5px solid var(--text-color);
+            border-bottom: 1.5px solid var(--text-color);
+            transform: translate(-75%, -50%) rotate(-45deg);
         }
 
         .status-indicator {
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: #4CAF50;
-            font-size: 0.875rem;
+            gap: 6px;
         }
 
         .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: #4CAF50;
+            width: 6px;
+            height: 6px;
+            background-color: var(--online-color);
             border-radius: 50%;
-            animation: pulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
+        .status-text {
+            font-size: 13px;
+            color: var(--online-color);
+            letter-spacing: -0.08px;
         }
 
         .delivery-options {
-            padding: 20px;
+            padding: 16px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .toggle-option {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.875rem;
+        }
+
+        .toggle-label {
+            font-size: 13px;
+            color: var(--text-color);
+            letter-spacing: -0.08px;
         }
 
         .toggle-switch {
@@ -116,8 +143,8 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ccc;
-            transition: .4s;
+            background-color: #E9E9EA;
+            transition: .2s;
             border-radius: 10px;
         }
 
@@ -129,8 +156,9 @@
             left: 2px;
             bottom: 2px;
             background-color: white;
-            transition: .4s;
+            transition: .2s;
             border-radius: 50%;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
         input:checked + .slider {
@@ -142,8 +170,7 @@
         }
 
         .navigation {
-            margin-top: 10px;
-            flex-grow: 1;
+            padding: 8px 0;
         }
 
         .nav-list {
@@ -151,45 +178,30 @@
         }
 
         .nav-item {
+            height: 32px;
+            padding: 0 16px;
+            display: flex;
+            align-items: center;
+            font-size: 13px;
+            color: var(--text-secondary);
+            letter-spacing: -0.08px;
             cursor: pointer;
-            padding: 10px 20px;
-            font-size: 0.875rem;
-            color: #666;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s ease;
         }
 
         .nav-item:hover {
-            background-color: rgba(0, 0, 0, 0.05);
-            transform: translateX(5px);
+            background-color: rgba(0, 0, 0, 0.04);
+            color: var(--text-color);
         }
 
         .nav-item.active {
             color: var(--accent-color);
-            background-color: rgba(0, 122, 255, 0.1);
-        }
-
-        .nav-item::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--accent-color);
-            transform: translateX(-100%);
-            transition: transform 0.3s ease;
-        }
-
-        .nav-item:hover::after {
-            transform: translateX(0);
+            background-color: rgba(0, 119, 237, 0.08);
         }
 
         .main-content {
             flex-grow: 1;
-            padding: 20px;
-            background-color: #F5F5F5;
+            background-color: var(--primary-bg);
         }
     </style>
 </head>
@@ -197,24 +209,24 @@
     <aside class="sidebar">
         <div class="shop-header">
             <div class="shop-title">
-                Shop
+                <span class="shop-name">Shop</span>
                 <span class="arrow"></span>
             </div>
             <div class="status-indicator">
                 <div class="status-dot"></div>
-                <span>Online</span>
+                <span class="status-text">Online</span>
             </div>
         </div>
         <div class="delivery-options">
             <div class="toggle-option">
-                <span>Pickup</span>
+                <span class="toggle-label">Pickup</span>
                 <label class="toggle-switch">
                     <input type="checkbox">
                     <span class="slider"></span>
                 </label>
             </div>
             <div class="toggle-option">
-                <span>Delivery</span>
+                <span class="toggle-label">Delivery</span>
                 <label class="toggle-switch">
                     <input type="checkbox">
                     <span class="slider"></span>

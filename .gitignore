@@ -1,15 +1,4 @@
-# Dependencies
-node_modules/
-
-# Build files
-.vercel/
-.next/
-build/
-dist/
-
-# Environment variables
-.env
-.env.local
-
-# System files
 .DS_Store
+node_modules
+.env
+.vercel

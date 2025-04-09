@@ -1,133 +1,165 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Shop Navigation</title>
+    <title>Restaurant Dashboard</title>
     <style>
-        :root {
-            --primary-bg: #FFFFFF;
-            --sidebar-bg: #FBFBFB;
-            --text-color: #1D1D1F;
-            --text-secondary: #6E6E73;
-            --accent-color: #0077ED;
-            --border-color: #D2D2D7;
-            --online-color: #34C759;
-            --sidebar-width: 256px;
-            --header-height: 64px;
-        }
-
+        /* Reset and base styles */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Icons', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background-color: var(--primary-bg);
-            color: var(--text-color);
-            line-height: 1.5;
-            height: 100vh;
-            display: flex;
-            -webkit-font-smoothing: antialiased;
+            background-color: #F5F5F5;
+            min-height: 100vh;
         }
 
+        /* Navigation sidebar */
         .sidebar {
-            width: var(--sidebar-width);
-            height: 100%;
-            background-color: var(--sidebar-bg);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 240px;
+            height: 100vh;
+            background-color: #FFFFFF;
+            padding: 24px 16px;
+            border-right: 1px solid #E0E0E0;
         }
 
-        .shop-header {
-            height: var(--header-height);
-            padding: 0 16px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
+        .nav-section {
+            margin-bottom: 24px;
         }
 
-        .shop-title {
-            display: flex;
-            align-items: center;
-            gap: 8px;
+        .nav-primary {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1A1A1A;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+        }
+
+        .nav-links {
+            list-style: none;
+        }
+
+        .nav-links li {
             margin-bottom: 4px;
         }
 
-        .shop-name {
-            font-size: 15px;
-            font-weight: 600;
-            letter-spacing: -0.24px;
-            color: var(--text-color);
+        .nav-links a {
+            display: block;
+            padding: 12px 16px;
+            color: #666666;
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
         }
 
-        .arrow {
-            margin-left: auto;
-            width: 16px;
-            height: 16px;
-            position: relative;
+        .nav-links a:hover {
+            background-color: #F5F5F5;
         }
 
-        .arrow::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 6px;
-            height: 6px;
-            border-right: 1.5px solid var(--text-color);
-            border-bottom: 1.5px solid var(--text-color);
-            transform: translate(-75%, -50%) rotate(-45deg);
+        .nav-links a.active {
+            background-color: #F5F5F5;
+            color: #1A1A1A;
+            font-weight: 500;
         }
 
-        .status-indicator {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            background-color: var(--online-color);
-            border-radius: 50%;
-        }
-
-        .status-text {
-            font-size: 13px;
-            color: var(--online-color);
-            letter-spacing: -0.08px;
-        }
-
-        .delivery-options {
-            padding: 16px;
+        /* Main content area */
+        .main-content {
+            margin-left: 240px;
+            padding: 32px;
             display: flex;
             flex-direction: column;
-            gap: 12px;
-            border-bottom: 1px solid var(--border-color);
+            align-items: flex-start;
+            max-width: 800px;
         }
 
-        .toggle-option {
+        /* Header with back button */
+        .page-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .back-button {
+            width: 24px;
+            height: 24px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .back-button svg {
+            width: 24px;
+            height: 24px;
+            fill: #1A1A1A;
+        }
+
+        .page-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1A1A1A;
+        }
+
+        /* Service cards container */
+        .service-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .service-card {
+            background: #FFFFFF;
+            border-radius: 12px;
+            padding: 20px;
+            width: 100%;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         }
 
-        .toggle-label {
-            font-size: 13px;
-            color: var(--text-color);
-            letter-spacing: -0.08px;
+        .service-card-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
+        .service-icon {
+            width: 40px;
+            height: 40px;
+            background: #F5F5F5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #1A1A1A;
+        }
+
+        .service-name {
+            font-size: 16px;
+            font-weight: 500;
+            color: #1A1A1A;
+        }
+
+        /* Toggle switch styling */
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 36px;
-            height: 20px;
+            width: 44px;
+            height: 24px;
         }
 
         .toggle-switch input {
@@ -136,115 +168,94 @@
             height: 0;
         }
 
-        .slider {
+        .toggle-slider {
             position: absolute;
             cursor: pointer;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #E9E9EA;
-            transition: .2s;
-            border-radius: 10px;
+            background-color: #E0E0E0;
+            transition: .4s;
+            border-radius: 34px;
         }
 
-        .slider:before {
+        .toggle-slider:before {
             position: absolute;
             content: "";
-            height: 16px;
-            width: 16px;
+            height: 20px;
+            width: 20px;
             left: 2px;
             bottom: 2px;
             background-color: white;
-            transition: .2s;
+            transition: .4s;
             border-radius: 50%;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
 
-        input:checked + .slider {
-            background-color: var(--accent-color);
+        input:checked + .toggle-slider {
+            background-color: #1A1A1A;
         }
 
-        input:checked + .slider:before {
-            transform: translateX(16px);
-        }
-
-        .navigation {
-            padding: 8px 0;
-        }
-
-        .nav-list {
-            list-style: none;
-        }
-
-        .nav-item {
-            height: 32px;
-            padding: 0 16px;
-            display: flex;
-            align-items: center;
-            font-size: 13px;
-            color: var(--text-secondary);
-            letter-spacing: -0.08px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .nav-item:hover {
-            background-color: rgba(0, 0, 0, 0.04);
-            color: var(--text-color);
-        }
-
-        .nav-item.active {
-            color: var(--accent-color);
-            background-color: rgba(0, 119, 237, 0.08);
-        }
-
-        .main-content {
-            flex-grow: 1;
-            background-color: var(--primary-bg);
+        input:checked + .toggle-slider:before {
+            transform: translateX(20px);
         }
     </style>
 </head>
 <body>
-    <aside class="sidebar">
-        <div class="shop-header">
-            <div class="shop-title">
-                <span class="shop-name">Shop</span>
-                <span class="arrow"></span>
-            </div>
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span class="status-text">Online</span>
-            </div>
-        </div>
-        <div class="delivery-options">
-            <div class="toggle-option">
-                <span class="toggle-label">Pickup</span>
-                <label class="toggle-switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-            <div class="toggle-option">
-                <span class="toggle-label">Delivery</span>
-                <label class="toggle-switch">
-                    <input type="checkbox">
-                    <span class="slider"></span>
-                </label>
-            </div>
-        </div>
-        <nav class="navigation">
-            <ul class="nav-list">
-                <li class="nav-item active">Overview</li>
-                <li class="nav-item">Features</li>
-                <li class="nav-item">Brand</li>
-                <li class="nav-item">Domain</li>
-                <li class="nav-item">Settings</li>
+    <nav class="sidebar">
+        <div class="nav-section">
+            <div class="nav-primary">Online</div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Overview</a></li>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Brand</a></li>
+                <li><a href="#">Domain</a></li>
+                <li><a href="#">Settings</a></li>
             </ul>
-        </nav>
-    </aside>
+        </div>
+    </nav>
+
     <main class="main-content">
-        <!-- Main content area -->
+        <div class="page-header">
+            <button class="back-button">
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+                </svg>
+            </button>
+            <h1 class="page-title">Shop</h1>
+        </div>
+
+        <div class="service-cards">
+            <div class="service-card">
+                <div class="service-card-left">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 7h-3V6c0-1.1-.9-2-2-2H10C8.9 4 8 4.9 8 6v1H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9-1h4v1h-4V6zm10 14H4V9h16v12z"/>
+                        </svg>
+                    </div>
+                    <span class="service-name">Pickup</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+
+            <div class="service-card">
+                <div class="service-card-left">
+                    <div class="service-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 7h-3V6c0-1.1-.9-2-2-2H10C8.9 4 8 4.9 8 6v1H5c-1.1 0-2 .9-2 2v11c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9-1h4v1h-4V6zm10 14H4V9h16v12z"/>
+                        </svg>
+                    </div>
+                    <span class="service-name">Delivery</span>
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+        </div>
     </main>
 </body>
 </html>

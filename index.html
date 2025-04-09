@@ -3,21 +3,236 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shop Navigation - Updated</title>
+    <title>Online Shop Navigation</title>
     <style>
-        /* ... existing styles ... */
-        
-        /* Add a new animation for the status indicator */
+        :root {
+            --primary-bg: #ffffff;
+            --text-color: #333333;
+            --accent-color: #007AFF;
+            --border-color: #E5E5E5;
+            --sidebar-width: 240px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            background-color: var(--primary-bg);
+            color: var(--text-color);
+            line-height: 1.5;
+            height: 100vh;
+            display: flex;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100%;
+            border-right: 1px solid var(--border-color);
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shop-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .shop-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .shop-title .arrow {
+            width: 16px;
+            height: 16px;
+            border-right: 2px solid var(--text-color);
+            border-bottom: 2px solid var(--text-color);
+            transform: rotate(45deg);
+            margin-left: auto;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #4CAF50;
+            font-size: 0.875rem;
+        }
+
         .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 50%;
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
             0% { opacity: 1; }
             50% { opacity: 0.5; }
             100% { opacity: 1; }
         }
+
+        .delivery-options {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .toggle-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.875rem;
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 36px;
+            height: 20px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 10px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--accent-color);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+
+        .navigation {
+            margin-top: 10px;
+            flex-grow: 1;
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            padding: 10px 20px;
+            font-size: 0.875rem;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            transform: translateX(5px);
+        }
+
+        .nav-item.active {
+            color: var(--accent-color);
+            background-color: rgba(0, 122, 255, 0.1);
+        }
+
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--accent-color);
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-item:hover::after {
+            transform: translateX(0);
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #F5F5F5;
+        }
     </style>
 </head>
-<!-- ... rest of the existing HTML ... -->
+<body>
+    <aside class="sidebar">
+        <div class="shop-header">
+            <div class="shop-title">
+                Shop
+                <span class="arrow"></span>
+            </div>
+            <div class="status-indicator">
+                <div class="status-dot"></div>
+                <span>Online</span>
+            </div>
+        </div>
+        <div class="delivery-options">
+            <div class="toggle-option">
+                <span>Pickup</span>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="toggle-option">
+                <span>Delivery</span>
+                <label class="toggle-switch">
+                    <input type="checkbox">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+        <nav class="navigation">
+            <ul class="nav-list">
+                <li class="nav-item active">Overview</li>
+                <li class="nav-item">Features</li>
+                <li class="nav-item">Brand</li>
+                <li class="nav-item">Domain</li>
+                <li class="nav-item">Settings</li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <!-- Main content area -->
+    </main>
+</body>
 </html>
